@@ -1,0 +1,3 @@
+landroid_cloud:
+  - email: !secret landroid_username
+    password: !secret landroid_password

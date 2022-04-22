@@ -1,0 +1,292 @@
+# Worx Landroid (M500 WR141E) package
+# https://github.com/Barma-lej/halandroid
+# Based on Landroid Cloud by @MTrab
+# https://github.com/MTrab/landroid_cloud
+
+# Cloud #############################################################
+landroid_cloud:
+  email: !secret landroid_mail
+  password: !secret landroid_pass
+
+# Recorder ##########################################################
+recorder:
+  exclude:
+    entities:
+      - sensor.landroid_ip
+      - sensor.landroid_sn
+      - sensor.landroid_mac
+      - sensor.landroid_lastupdate
+      - input_number.landroid_raindelay
+      - input_number.landroid_timeextension
+      - input_boolean.landroid_info_toggle
+      - input_boolean.landroid_sched_settings
+      - automation.landroid_notify_status
+      - automation.landroid_notify_error
+      - automation.landroid_sync_values
+      - script.landroid_start
+      - script.landroid_stop
+      - script.landroid_pause
+      - script.landroid_set_config
+
+# Logbook ###########################################################
+logbook:
+  exclude:
+    entities:
+      - sensor.landroid_ip
+      - sensor.landroid_sn
+      - sensor.landroid_mac
+      - sensor.landroid_lastupdate
+      - input_number.landroid_raindelay
+      - input_number.landroid_timeextension
+      - input_boolean.landroid_info_toggle
+      - input_boolean.landroid_sched_settings
+      - automation.landroid_notify_status
+      - automation.landroid_notify_error
+      - automation.landroid_sync_values
+      - script.landroid_start
+      - script.landroid_stop
+      - script.landroid_pause
+      - script.landroid_set_config
+
+# Switch ############################################################
+switch:
+  - platform: template
+    switches:
+      landroid_mowing:
+        value_template: "{{ is_state_attr('sensor.landroid_landroid_guffe_status', 'status_id', 7) }}"
+        turn_on:
+          service: script.landroid_start
+        turn_off:
+          service: script.landroid_stop
+
+# Sensor ############################################################
+# sensor.landroid_mower_battery
+# sensor.landroid_mower_error
+# sensor.landroid_mower_status
+template:
+  sensor:
+# Info ############
+    - name: Landroid IP
+      unique_id: landroid_ip
+      state: !secret landroid_ip
+      icon: mdi:ip-network
+
+    - name: Landroid SN
+      unique_id: landroid_sn
+      state: !secret landroid_sn
+      icon: mdi:numeric
+
+    - name: Landroid MAC
+      unique_id: landroid_mac
+      state: !secret landroid_mac
+      icon: mdi:barcode
+
+# Status ##########
+    - name: Landroid Bladetime
+      unique_id: landroid_bladetime
+      state: "{{ state_attr('sensor.landroid_landroid_guffe_status', 'blade_time') }}"
+      icon: mdi:fan
+      unit_of_measurement: "min"
+      attributes:
+        time_formatted: >
+          {% set t = state_attr("sensor.landroid_landroid_guffe_status", "blade_time") | int %}
+          {% if t != 0 %}
+            {{ "%0d d %0.02d h %0.02d min" | format(t // 1440, ((t % 1440) // 60), t % 60) }}
+          {%- else -%}
+            {{ '0 min' }}
+          {% endif %}
+
+    - name: Landroid Totaltime
+      unique_id: landroid_totaltime
+      state: "{{ state_attr('sensor.landroid_landroid_guffe_status', 'work_time') }}"
+      icon: mdi:bus-clock
+      unit_of_measurement: "min"
+      attributes:
+        time_formatted: >
+          {% set t = state_attr("sensor.landroid_landroid_guffe_status", "work_time") | int %}
+          {% if t != 0 %}
+            {{ "%0d d %0.02d h %0.02d min" | format(t // 1440, ((t % 1440) // 60), t % 60) }}
+          {%- else -%}
+            {{ '0 min' }}
+          {% endif %}
+
+    - name: Landroid Dist
+      unique_id: landroid_dist
+      state: "{{ (state_attr('sensor.landroid_landroid_guffe_status', 'distance') | float) / 1000 }}"
+      icon: mdi:map-marker-distance
+      unit_of_measurement: "km"
+
+    - name: Landroid lastupdate
+      unique_id: landroid_lastupdate
+      state: "{{ as_timestamp(strptime( state_attr('sensor.landroid_landroid_guffe_status', 'last_update'), '%H:%M:%S %d/%m/%Y')) | timestamp_custom('%d.%m.%Y %H:%M:%S') }}"
+      icon: mdi:clock
+
+# -55 or higher: 4 bars
+# -56 to -66: 3 bars
+# -67 to -77: 2 bars
+# -78 to -88: 1 bar
+# -89 or lower: 0 bars
+    - name: Landroid WIFI
+      unique_id: landroid_wifi
+      state: "{{ state_attr('sensor.landroid_landroid_guffe_status', 'rssi') }}"
+      device_class: signal_strength
+      unit_of_measurement: "dBm"
+      icon: >-
+        {% set strength = state_attr("sensor.landroid_landroid_guffe_status", "rssi") | float -%}
+        {%- if strength > -56 -%}mdi:wifi-strength-4
+        {% elif strength > -67 -%}mdi:wifi-strength-3
+        {% elif strength > -78 -%}mdi:wifi-strength-2
+        {% elif strength > -89 -%}mdi:wifi-strength-1
+        {%- else -%}mdi:wifi-strength-outline
+        {%- endif %}
+
+    - name: Landroid Yaw
+      unique_id: landroid_yaw
+      state: "{{ state_attr('sensor.landroid_landroid_guffe_status', 'yaw') }}"
+      icon: mdi:axis-z-rotate-clockwise
+      unit_of_measurement: "°"
+
+    - name: Landroid Roll
+      unique_id: landroid_roll
+      state: "{{ state_attr('sensor.landroid_landroid_guffe_status', 'roll') }}"
+      icon: mdi:axis-x-rotate-clockwise
+      unit_of_measurement: "°"
+
+    - name: Landroid Pitch
+      unique_id: landroid_pitch
+      state: "{{ state_attr('sensor.landroid_landroid_guffe_status', 'pitch') }}"
+      icon: mdi:seat-flat-angled
+      unit_of_measurement: "°"
+
+# Input Number ######################################################
+input_number:
+  landroid_raindelay:
+    name: Rain delay
+    initial: 150
+    min: 0
+    max: 300
+    step: 30
+    unit_of_measurement: "min"
+    icon: mdi:weather-lightning-rainy
+
+  landroid_timeextension:
+    name: Time extension
+    initial: 0
+    min: -100
+    max: 100
+    step: 10
+    unit_of_measurement: "%"
+    icon: mdi:clock-out
+
+# Input Boolean #####################################################
+input_boolean:
+# Booleans for Lovelace
+  landroid_sched_settings:
+    name: Scheduler settings
+    icon: mdi:file-hidden
+    initial: false
+  landroid_info_toggle:
+    name: Info toggle
+    icon: mdi:file-hidden
+    initial: false
+
+# Automations #######################################################
+automation:
+# Status notificaion
+  - id: landroid_notify_status
+    alias: Landroid Notify Status
+    initial_state: false
+    trigger:
+      - platform: state
+        entity_id: sensor.landroid_landroid_guffe_status
+
+    condition:
+      - condition: template
+        value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
+
+    action:
+      - service: persistent_notification.create
+        data:
+          title: 🏎️ Lanroid Mower
+          message: "{{ trigger.to_state.state }} <- {{ trigger.from_state.state }} - {{ states('sensor.date_time') }}"
+
+# Error notificaion
+  - id: landroid_notify_error
+    alias: Landroid Notify Error
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.landroid_landroid_guffe_error
+
+    condition:
+      - condition: template
+        value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
+
+    action:
+      - service: persistent_notification.create
+        data:
+          title: 🏎️ Lanroid Mower
+          message: "{{ trigger.to_state.state }} <- {{ trigger.from_state.state }} - {{ states('sensor.date_time') }}"
+
+# Sync Landroid states
+  - id: landroid_sync_values
+    alias: Landroid sync values
+    trigger:
+      - platform: homeassistant
+        event: start
+
+      - platform: state
+        entity_id: sensor.landroid_lastupdate
+
+    action:
+# Get rain delay
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.landroid_raindelay
+          value: "{{ state_attr('sensor.landroid_landroid_guffe_status','raindelay') | int }}"
+# Get time extension
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.landroid_timeextension
+          value: "{{ state_attr('sensor.landroid_landroid_guffe_status','timeextension') | int }}"
+
+# Scripts ###########################################################
+# Services
+# landroid_cloud.start
+# landroid_cloud.stop
+# landroid_cloud.pause
+
+script:
+# Starts the mower
+  landroid_start:
+    alias: Landroid Start
+    sequence:
+      service: landroid_cloud.start
+      data:
+        id: "{{ state_attr('sensor.landroid_landroid_guffe_status','id') }}"
+
+# Stops the mower and sends it home
+  landroid_home:
+    alias: Landroid Home
+    sequence:
+      service: landroid_cloud.home
+      data:
+        id: "{{ state_attr('sensor.landroid_landroid_guffe_status','id') }}"
+
+# Pause the mower
+  landroid_pause:
+    alias: Landroid Pause
+    sequence:
+      service: landroid_cloud.pause
+      data:
+        id: "{{ state_attr('sensor.landroid_landroid_guffe_status','id') }}"
+
+# Set rain delay and time extension
+  landroid_set_config:
+    alias: Landroid set config
+    sequence:
+      service: landroid_cloud.config
+      data:
+        id: "{{ state_attr('sensor.landroid_landroid_guffe_status','id') }}"
+        raindelay: "{{ states('input_number.landroid_raindelay') | int }}"
+        timeextension: "{{ states('input_number.landroid_timeextension') | int }}"

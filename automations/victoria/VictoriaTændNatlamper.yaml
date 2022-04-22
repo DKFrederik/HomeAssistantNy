@@ -1,0 +1,17 @@
+# id: '1618167430328'
+# alias: Victoria natlamper tænd
+# description: Tænd alle Victorias natlamper
+# trigger:
+# - platform: time
+#   at: '19:00'
+# condition: []
+# action:
+# - type: turn_on
+#   device_id: b5408fdfd4d34ed9a2881c23276f37fc
+#   entity_id: switch.on_off_plug_in_unit_23
+#   domain: switch
+# - type: turn_on
+#   device_id: 184c86a79128ec579ab429623dae8b59
+#   entity_id: switch.on_off_plug_in_unit_26
+#   domain: switch
+# mode: single

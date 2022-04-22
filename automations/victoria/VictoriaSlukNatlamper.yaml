@@ -1,0 +1,17 @@
+# id: '1618167342226'
+# alias: Victoria natlamper sluk
+# description: Sluk alle Victoria natlamper
+# trigger:
+# - platform: time
+#   at: '23:59'
+# condition: []
+# action:
+# - type: turn_off
+#   device_id: b5408fdfd4d34ed9a2881c23276f37fc
+#   entity_id: switch.on_off_plug_in_unit_23
+#   domain: switch
+# - type: turn_off
+#   device_id: 184c86a79128ec579ab429623dae8b59
+#   entity_id: switch.on_off_plug_in_unit_26
+#   domain: switch
+# mode: single

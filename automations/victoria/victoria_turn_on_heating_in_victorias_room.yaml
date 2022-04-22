@@ -1,0 +1,20 @@
+id: 'victoria_turn_on_heating_in_victorias_room'
+alias: victoria turn on heating in victorias room
+description: turn off heating in victorias room when window closes
+trigger:
+- entity_id: binary_sensor.victoriavindue1, binary_sensor.victoriavindue2
+  from: 'on'
+  platform: state
+  to: 'off'
+condition:
+- condition: state
+  entity_id: binary_sensor.victoriavindue1
+  state: 'off'
+- condition: state
+  entity_id: binary_sensor.victoriavindue2
+  state: 'off'
+action:
+- data:
+    hvac_mode: auto
+  entity_id: climate.victorias_vaerelse
+  service: climate.set_hvac_mode

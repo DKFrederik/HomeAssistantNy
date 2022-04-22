@@ -1,0 +1,73 @@
+# Customize #########################################################
+homeassistant:
+  customize:
+# Sensor ##########
+    sensor.landroid_mower_battery:
+      friendly_name: Batteri
+      device_class: battery
+
+    sensor.landroid_mower_error:
+      friendly_name: Fejl
+    sensor.landroid_mower_status:
+      friendly_name: Status
+
+    sensor.landroid_ip:
+      friendly_name: IP-Adresse
+    sensor.landroid_sn:
+      friendly_name: Serienummer
+    sensor.landroid_mac:
+      friendly_name: MAC-Adresse
+
+    sensor.landroid_bladetime:
+      friendly_name: Klingetid
+    sensor.landroid_totaltime:
+      friendly_name: Total tid
+    sensor.landroid_dist:
+      friendly_name: Distance
+    sensor.landroid_lastupdate:
+      friendly_name: Sidst opdateret
+      icon: mdi:update
+    sensor.landroid_wifi:
+      friendly_name: WiFi kvalitet
+    sensor.landroid_yaw:
+      friendly_name: Gieren/Рысканье
+    sensor.landroid_roll:
+      friendly_name: Rollen/Крен
+    sensor.landroid_pitch:
+      friendly_name: Nicken/Тангаж
+
+# Input Number ####
+    input_number.landroid_raindelay:
+      friendly_name: Regn udsættelse
+    input_number.landroid_timeextension:
+      friendly_name: Udsæt
+
+    input_boolean.landroid_sched_settings:
+      friendly_name: Klippeplan
+    input_boolean.landroid_info_toggle:
+      friendly_name: Information
+
+# Automation ######
+    automation.landroid_notify_status:
+      friendly_name: Landroid-statusmeddelelse
+      icon: mdi:bell
+    automation.landroid_notify_error:
+      friendly_name: Landroid-fejlmeddelelse
+      icon: mdi:bell
+
+    automation.landroid_sync_values:
+      friendly_name: Landroid dataopdatering
+      icon: mdi:sync
+# Scripts #########
+    script.landroid_start:
+      friendly_name: Start
+      icon: mdi:play
+    script.landroid_pause:
+      friendly_name: Pause
+      icon: mdi:home
+    script.landroid_stop:
+      friendly_name: Stop
+      icon: mdi:stop
+    script.landroid_set_config:
+      friendly_name: Gem konfiguration
+      icon: mdi:content-save-settings
