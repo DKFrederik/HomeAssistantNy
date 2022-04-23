@@ -16,5 +16,5 @@ action:
     entity_id:
     # - media_player.google_home
     - media_player.kokken
-    message: '..... Bryggersdøren er blevet åbnet! '
+    message: 'Bryggersdøren er blevet åbnet! '
     cache: true

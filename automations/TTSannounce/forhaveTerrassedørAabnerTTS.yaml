@@ -16,5 +16,5 @@ action:
     entity_id:
     # - media_player.google_home
     - media_player.kokken
-    message: '..... Terrassedøren til forhaven er blevet åbnet! '
+    message: 'Terrassedøren til forhaven er blevet åbnet! '
     cache: true

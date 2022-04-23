@@ -1,4 +1,4 @@
-alias: 'Test Toggle'
+alias: 'Test-Toggle'
 id: testlys
 initial_state: 'on'
 trigger:
