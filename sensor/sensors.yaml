@@ -4,17 +4,17 @@
 #                                                                                                               #
 #################################################################################################################
 # travis (don't know wich kind of sensor this is... maby binary?)
-- platform: travisci
-  api_key: !secret github_token
+# - platform: travisci
+#   api_key: !secret github_token
 
 #################################################################################################################
 #                                                                                                               #
 #                                            Installed version                                                  #
 #                                                                                                               #
 #################################################################################################################
-- platform: command_line
-  name: Current Version
-  command: "cat /config/.HA_VERSION"
+# - platform: command_line
+#   name: Current Version
+#   command: "cat /config/.HA_VERSION"
 #================================
 
 #################################################################################################################
@@ -22,19 +22,19 @@
 #                                       Lasetes stable version on github                                        #
 #                                                                                                               #
 #################################################################################################################
-- platform: version
+# - platform: version
 
-- platform: rest
-  resource: https://api.github.com/repos/home-assistant/home-assistant/releases/latest
-  username: !secret github_username
-  password: !secret github_password
-  authentication: basic
-  value_template: '{{ value_json.tag_name }}'
-  headers:
-    Accept: application/vnd.github.v3+json
-    Content-Type: application/json
-    User-Agent: Home Assistant REST sensor
-  name: Lastest Release
+# - platform: rest
+#   resource: https://api.github.com/repos/home-assistant/home-assistant/releases/latest
+#   username: !secret github_username
+#   password: !secret github_password
+#   authentication: basic
+#   value_template: '{{ value_json.tag_name }}'
+#   headers:
+#     Accept: application/vnd.github.v3+json
+#     Content-Type: application/json
+#     User-Agent: Home Assistant REST sensor
+#   name: Lastest Release
 
 #################################################################################################################
 #                                                                                                               #
@@ -43,20 +43,20 @@
 #################################################################################################################
 
 #https://home-assistant.io/components/sensor.systemmonitor/
-- platform: systemmonitor
-  resources:
-    - type: memory_use_percent
-    - type: processor_use
-    - type: load_1m
-    - type: load_5m
-    - type: load_15m
-    - type: last_boot
-    - type: disk_use_percent
-      arg: /home
-    - type: disk_free
-      arg: /home
-    - type: disk_use
-      arg: /home
+# - platform: systemmonitor
+#   resources:
+#     - type: memory_use_percent
+#     - type: processor_use
+#     - type: load_1m
+#     - type: load_5m
+#     - type: load_15m
+#     - type: last_boot
+#     - type: disk_use_percent
+#       arg: /home
+#     - type: disk_free
+#       arg: /home
+#     - type: disk_use
+#       arg: /home
 
 #################################################################################################################
 #                                                                                                               #
@@ -64,19 +64,19 @@
 #                                                                                                               #
 #################################################################################################################
 
-- platform: rest
-  resource: https://api.ipify.org?format=json
-  name: External IP
-  value_template: '{{ value_json.ip }}'
+# - platform: rest
+#   resource: https://api.ipify.org?format=json
+#   name: External IP
+#   value_template: '{{ value_json.ip }}'
 
 #################################################################################################################
 #                                                                                                               #
 #                                           Internal IP of Server                                               #
 #                                                                                                               #
 #################################################################################################################
-- platform: command_line
-  name: internal docker ip
-  command: "hostname -i"
+# - platform: command_line
+#   name: internal docker ip
+#   command: "hostname -i"
 
 #################################################################################################################
 #                                                                                                               #
@@ -362,11 +362,11 @@
 #                                                                                                               #
 #################################################################################################################
 
-- platform: template
-  sensors:
-    weather_temperature:
-      unit_of_measurement: 'degrees'
-      value_template: "{{ state_attr('weather.aeblevangen', 'temperature') }}"
+# - platform: template
+#   sensors:
+#     weather_temperature:
+#       unit_of_measurement: 'degrees'
+#       value_template: "{{ state_attr('weather.aeblevangen', 'temperature') }}"
 
 #################################################################################################################
 #                                                                                                               #

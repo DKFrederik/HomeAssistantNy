@@ -3,12 +3,12 @@
 default_config:
 
 # Text to speech
-tts:
-  - platform: google_translate
+# tts:
+#   - platform: google_translate
 
 homeassistant:
   packages: !include_dir_named packages
 
 #automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
+# script: !include scripts.yaml
+# scene: !include scenes.yaml

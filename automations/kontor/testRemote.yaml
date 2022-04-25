@@ -9,4 +9,4 @@ trigger:
     event: 3002
 action:
   service: switch.toggle
-  entity_id: switch.Kontor-ekstra
+  entity_id: switch.kontor_ekstra

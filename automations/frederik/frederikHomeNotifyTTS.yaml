@@ -12,5 +12,5 @@ action:
   data:
     entity_id:
     - media_player.kokken
-    message: '..... Frederik er hjemme! '
+    message: 'Frederik er hjemme! '
     cache: true

@@ -12,5 +12,5 @@ action:
   data:
     entity_id:
     - media_player.kokken
-    message: '..... Trine er hjemme! '
+    message: 'Trine er hjemme! '
     cache: true
