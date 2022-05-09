@@ -2,7 +2,7 @@ id: 'Turn_on_coffemaker_when_alarm_is_disabled_from_armed_home'
 alias: kaffemaskine turn on coffemaker when alarm is disabled from armed home
 description: ''
 trigger:
-- entity_id: alarm_control_panel.aeblevangen_alarm
+- entity_id: alarm_control_panel.verisure_alarm
   from: armed_home
   platform: state
   to: disarmed

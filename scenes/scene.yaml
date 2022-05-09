@@ -129,20 +129,12 @@
       state: off
     light.sovevaerelse:
       state: off
-    # light.stue1:
-    #   state: off
-    # light.stue2:
-    #   state: off
-    # light.kommode_stue1_lys1:
-    #   state: off
-    # light.kommode_stue1_lys2:
-    #   state: off
     light.tristan1:
       state: off
     light.spisebord_lys:
       state: off
-    # switch.switch3:
-    #   state: off
+    light.stuespisebord:
+      state: off
     switch.sonoff_1000989db8:
       state: off
     switch.sonoff_1000319a9b:
