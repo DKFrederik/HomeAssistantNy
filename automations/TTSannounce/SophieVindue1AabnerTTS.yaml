@@ -17,5 +17,5 @@ action:
       entity_id: 
       # - media_player.google_home
       - media_player.kokken
-      message: "Vinduet på Victorias værelse er blevet åbnet! "
+      message: "Vinduet på Sophies værelse er blevet åbnet! "
       cache: true

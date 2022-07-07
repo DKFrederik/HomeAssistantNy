@@ -5,6 +5,7 @@
     "private": true,
     "dependencies": {
         "node-red-contrib-cron": "0.0.4",
-        "node-red-contrib-cron-plus": "~1.4.3"
+        "node-red-contrib-cron-plus": "~1.4.3",
+        "node-red-contrib-stoptimer": "~0.0.7"
     }
 }
