@@ -1,5 +1,7 @@
 DOMAIN = "sonoff"
 
+CONF_APPID = "appid"
+CONF_APPSECRET = "appsecret"
 CONF_DEBUG = "debug"
 CONF_DEFAULT_CLASS = "default_class"
 CONF_DEVICEKEY = "devicekey"
@@ -7,7 +9,9 @@ CONF_RFBRIDGE = "rfbridge"
 
 CONF_MODES = ["auto", "cloud", "local"]
 
-PRIVATE_KEYS = ('bindInfos', 'bssid', 'ssid', 'staMac', 'timers')
+PRIVATE_KEYS = (
+    'bindInfos', 'bssid', 'mac', 'p2pinfo', 'ssid', 'staMac', 'timers',
+)
 
 
 def source_hash() -> str:
